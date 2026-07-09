@@ -63,6 +63,8 @@ return function(Config)
 		HidePanelBackground = Config.HidePanelBackground or false,
 		AutoScale = Config.AutoScale ~= false,
 		OpenButton = Config.OpenButton,
+		OpenButtonToggle = Config.OpenButtonToggle or false,
+		OpenButtonAlwaysVisible = Config.OpenButtonAlwaysVisible or false,
 		DragFrameSize = 160,
 
 		Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -1414,7 +1416,7 @@ end)
 				end
 			end
 
-			if Window.OpenButtonMain and Window.IsOpenButtonEnabled then
+			if Window.OpenButtonMain and Window.IsOpenButtonEnabled and not Window.OpenButtonAlwaysVisible then
 				Window.OpenButtonMain:Visible(false)
 			end
 
@@ -1552,8 +1554,10 @@ end)
 
 			Window.UIElements.Main.Visible = false
 
-			if Window.OpenButtonMain and not Window.Destroyed and not Window.IsPC and Window.IsOpenButtonEnabled then
-				Window.OpenButtonMain:Visible(true)
+			if Window.OpenButtonMain and not Window.Destroyed and Window.IsOpenButtonEnabled then
+				if Window.OpenButtonToggle or Window.OpenButtonAlwaysVisible or not Window.IsPC then
+					Window.OpenButtonMain:Visible(true)
+				end
 			end
 		end)
 
@@ -1699,9 +1703,11 @@ end)
 
 	if Window.OpenButtonMain and Window.OpenButtonMain.Button then
 		Creator.AddSignal(Window.OpenButtonMain.Button.TextButton.MouseButton1Click, function()
-			-- OpenButtonContainer.Visible = false
-			--Window.OpenButtonMain:Visible(false)
-			Window:Open()
+			if Window.OpenButtonToggle then
+				Window:Toggle()
+			else
+				Window:Open()
+			end
 		end)
 	end
 

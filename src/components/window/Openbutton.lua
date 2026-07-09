@@ -67,7 +67,7 @@ function OpenButton.New(Window)
 
     local Container = New("Frame", {
         Size = UDim2.new(0,0,0,0),
-        Position = UDim2.new(0.5,0,0,6+44/2),
+        Position = UDim2.new(0.5, 0, 0.5, 0),
         AnchorPoint = Vector2.new(0.5,0.5),
         Parent = Window.Parent,
         BackgroundTransparency = 1,
@@ -159,7 +159,7 @@ function OpenButton.New(Window)
                 true,
                 Window.IconThemed
             )
-            Icon.Size = UDim2.new(0,22,0,22)
+            Icon.Size = Title and not Title.Visible and UDim2.new(0, 34, 0, 34) or UDim2.new(0, 22, 0, 22)
             Icon.LayoutOrder = -1
             Icon.Parent = OpenButtonMain.Button.TextButton
         end
@@ -185,7 +185,7 @@ function OpenButton.New(Window)
         Tween(Button.TextButton, .1, {BackgroundTransparency = 1}):Play()
     end)
     
-    local DragModule = Creator.Drag(Container)
+    local DragModule = Creator.Drag(Container, { Button.TextButton })
     
     
     function OpenButtonMain:Visible(v)
@@ -225,28 +225,67 @@ function OpenButton.New(Window)
         end
         
         
-        if OpenButtonModule.Draggable == false and Drag and Divider then
-            Drag.Visible = OpenButtonModule.Draggable
-            Divider.Visible = OpenButtonModule.Draggable
-            
-            if DragModule then
-                DragModule:Set(OpenButtonModule.Draggable)
-            end
-        end
-        
-        if OpenButtonModule.Position and Container then
-            Container.Position = OpenButtonModule.Position
-        end
-        
-        if OpenButtonModule.OnlyIcon == true and Title then
-            Title.Visible = false
-            Button.TextButton.UIPadding.PaddingLeft = UDim.new(0,7)
-            Button.TextButton.UIPadding.PaddingRight = UDim.new(0,7)
-        elseif OpenButtonModule.OnlyIcon == false then
-            Title.Visible = true
-            Button.TextButton.UIPadding.PaddingLeft = UDim.new(0,7+4)
-            Button.TextButton.UIPadding.PaddingRight = UDim.new(0,7+4)
-        end
+        		if Drag and Divider then
+			local CanDrag = OpenButtonModule.Draggable ~= false
+
+			if OpenButtonModule.OnlyIcon == true then
+				Drag.Visible = false
+				Divider.Visible = false
+			else
+				Drag.Visible = CanDrag
+				Divider.Visible = CanDrag
+			end
+
+			if DragModule then
+				DragModule:Set(CanDrag)
+			end
+		end
+
+		if OpenButtonModule.Position and Container then
+			Container.Position = OpenButtonModule.Position
+		end
+
+		if OpenButtonModule.OnlyIcon == true and Title then
+			Title.Visible = false
+
+			Drag.Visible = false
+			Divider.Visible = false
+
+			Button.Size = UDim2.new(0, 54, 0, 54)
+			Button.AutomaticSize = Enum.AutomaticSize.None
+
+			Button.TextButton.Size = UDim2.new(1, -8, 1, -8)
+			Button.TextButton.AutomaticSize = Enum.AutomaticSize.None
+			Button.TextButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+			Button.TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
+
+			Button.TextButton.UIPadding.PaddingLeft = UDim.new(0, 0)
+			Button.TextButton.UIPadding.PaddingRight = UDim.new(0, 0)
+
+			if Icon then
+				Icon.Size = UDim2.new(0, 34, 0, 34)
+			end
+		elseif OpenButtonModule.OnlyIcon == false then
+			Title.Visible = true
+
+			Drag.Visible = OpenButtonModule.Draggable ~= false
+			Divider.Visible = OpenButtonModule.Draggable ~= false
+
+			Button.Size = UDim2.new(0, 0, 0, 44)
+			Button.AutomaticSize = Enum.AutomaticSize.X
+
+			Button.TextButton.AutomaticSize = Enum.AutomaticSize.XY
+			Button.TextButton.Size = UDim2.new(0, 0, 0, 44 - (4 * 2))
+			Button.TextButton.Position = UDim2.new(0, 0, 0, 0)
+			Button.TextButton.AnchorPoint = Vector2.new(0, 0)
+
+			Button.TextButton.UIPadding.PaddingLeft = UDim.new(0, 7 + 4)
+			Button.TextButton.UIPadding.PaddingRight = UDim.new(0, 7 + 4)
+
+			if Icon then
+				Icon.Size = UDim2.new(0, 22, 0, 22)
+			end
+		end
         
         --OpenButtonMain:Visible((not OpenButtonModule.OnlyMobile) or (not Window.IsPC))
         

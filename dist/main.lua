@@ -5281,7 +5281,7 @@ BackgroundTransparency=.9,
 
 local al=ac("Frame",{
 Size=UDim2.new(0,0,0,0),
-Position=UDim2.new(0.5,0,0,28),
+Position=UDim2.new(0.5,0,0.5,0),
 AnchorPoint=Vector2.new(0.5,0.5),
 Parent=af.Parent,
 BackgroundTransparency=1,
@@ -5373,7 +5373,7 @@ af.Folder,
 true,
 af.IconThemed
 )
-ah.Size=UDim2.new(0,22,0,22)
+ah.Size=ai and not ai.Visible and UDim2.new(0,34,0,34)or UDim2.new(0,22,0,22)
 ah.LayoutOrder=-1
 ah.Parent=ag.Button.TextButton
 end
@@ -5399,7 +5399,7 @@ ab.AddSignal(an.TextButton.MouseLeave,function()
 ad(an.TextButton,.1,{BackgroundTransparency=1}):Play()
 end)
 
-local ao=ab.Drag(al)
+local ao=ab.Drag(al,{an.TextButton})
 
 
 function ag.Visible(ap,aq)
@@ -5439,12 +5439,19 @@ af.IsPC=false
 end
 
 
-if ar.Draggable==false and aj and ak then
-aj.Visible=ar.Draggable
-ak.Visible=ar.Draggable
+if aj and ak then
+local as=ar.Draggable~=false
+
+if ar.OnlyIcon==true then
+aj.Visible=false
+ak.Visible=false
+else
+aj.Visible=as
+ak.Visible=as
+end
 
 if ao then
-ao:Set(ar.Draggable)
+ao:Set(as)
 end
 end
 
@@ -5454,12 +5461,44 @@ end
 
 if ar.OnlyIcon==true and ai then
 ai.Visible=false
-an.TextButton.UIPadding.PaddingLeft=UDim.new(0,7)
-an.TextButton.UIPadding.PaddingRight=UDim.new(0,7)
+
+aj.Visible=false
+ak.Visible=false
+
+an.Size=UDim2.new(0,54,0,54)
+an.AutomaticSize=Enum.AutomaticSize.None
+
+an.TextButton.Size=UDim2.new(1,-8,1,-8)
+an.TextButton.AutomaticSize=Enum.AutomaticSize.None
+an.TextButton.Position=UDim2.new(0.5,0,0.5,0)
+an.TextButton.AnchorPoint=Vector2.new(0.5,0.5)
+
+an.TextButton.UIPadding.PaddingLeft=UDim.new(0,0)
+an.TextButton.UIPadding.PaddingRight=UDim.new(0,0)
+
+if ah then
+ah.Size=UDim2.new(0,34,0,34)
+end
 elseif ar.OnlyIcon==false then
 ai.Visible=true
+
+aj.Visible=ar.Draggable~=false
+ak.Visible=ar.Draggable~=false
+
+an.Size=UDim2.new(0,0,0,44)
+an.AutomaticSize=Enum.AutomaticSize.X
+
+an.TextButton.AutomaticSize=Enum.AutomaticSize.XY
+an.TextButton.Size=UDim2.new(0,0,0,36)
+an.TextButton.Position=UDim2.new(0,0,0,0)
+an.TextButton.AnchorPoint=Vector2.new(0,0)
+
 an.TextButton.UIPadding.PaddingLeft=UDim.new(0,11)
 an.TextButton.UIPadding.PaddingRight=UDim.new(0,11)
+
+if ah then
+ah.Size=UDim2.new(0,22,0,22)
+end
 end
 
 
@@ -13083,6 +13122,8 @@ IgnoreAlerts=av.IgnoreAlerts or false,
 HidePanelBackground=av.HidePanelBackground or false,
 AutoScale=av.AutoScale~=false,
 OpenButton=av.OpenButton,
+OpenButtonToggle=av.OpenButtonToggle or false,
+OpenButtonAlwaysVisible=av.OpenButtonAlwaysVisible or false,
 DragFrameSize=160,
 
 Position=UDim2.new(0.5,0,0.5,0),
@@ -14434,7 +14475,7 @@ ImageTransparency=aw.BackgroundImageTransparency,
 end
 end
 
-if aw.OpenButtonMain and aw.IsOpenButtonEnabled then
+if aw.OpenButtonMain and aw.IsOpenButtonEnabled and not aw.OpenButtonAlwaysVisible then
 aw.OpenButtonMain:Visible(false)
 end
 
@@ -14572,8 +14613,10 @@ end
 
 aw.UIElements.Main.Visible=false
 
-if aw.OpenButtonMain and not aw.Destroyed and not aw.IsPC and aw.IsOpenButtonEnabled then
+if aw.OpenButtonMain and not aw.Destroyed and aw.IsOpenButtonEnabled then
+if aw.OpenButtonToggle or aw.OpenButtonAlwaysVisible or not aw.IsPC then
 aw.OpenButtonMain:Visible(true)
+end
 end
 end)
 
@@ -14719,9 +14762,11 @@ end
 
 if aw.OpenButtonMain and aw.OpenButtonMain.Button then
 an.AddSignal(aw.OpenButtonMain.Button.TextButton.MouseButton1Click,function()
-
-
+if aw.OpenButtonToggle then
+aw:Toggle()
+else
 aw:Open()
+end
 end)
 end
 
