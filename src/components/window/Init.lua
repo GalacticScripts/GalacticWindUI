@@ -151,6 +151,10 @@ return function(Config)
 		Window.AcrylicPaint = AcrylicPaint
 	end
 
+	local IsResizing = false
+	local ResizeStartMouse = nil
+	local ResizeStartSize = nil
+
 	local ResizeHandle = New("Frame", {
 		Size = UDim2.new(0, 32, 0, 32),
 		Position = UDim2.new(1, 0, 1, 0),
@@ -165,7 +169,7 @@ return function(Config)
 			Image = "rbxassetid://120997033468887",
 			Position = UDim2.new(0.5, -16, 0.5, -16),
 			AnchorPoint = Vector2.new(0.5, 0.5),
-			ImageTransparency = 1, -- .8; .35
+			ImageTransparency = 0.8,
 		}),
 	})
 	local FullScreenIcon = Creator.NewRoundFrame(Window.UICorner, "Squircle", {
@@ -1079,6 +1083,60 @@ return function(Config)
 			end
 		end
 	)
+
+Creator.AddSignal(ResizeHandle.InputBegan, function(Input)
+	if not Window.CanResize or Window.IsFullscreen or Window.Closed then
+		return
+	end
+
+	if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+		IsResizing = true
+		ResizeStartMouse = UserInputService:GetMouseLocation()
+		ResizeStartSize = Window.UIElements.Main.AbsoluteSize
+
+		WindowDragModule:Set(false)
+		Tween(ResizeHandle.ImageLabel, 0.1, { ImageTransparency = 0.35 }):Play()
+	end
+end)
+
+Creator.AddSignal(UserInputService.InputChanged, function(Input)
+	if not IsResizing then
+		return
+	end
+
+	if Input.UserInputType ~= Enum.UserInputType.MouseMovement and Input.UserInputType ~= Enum.UserInputType.Touch then
+		return
+	end
+
+	local MouseNow = UserInputService:GetMouseLocation()
+	local Delta = (MouseNow - ResizeStartMouse) / Config.WindUI.UIScale
+
+	local NewWidth = math.clamp(ResizeStartSize.X + Delta.X, Window.MinSize.X, Window.MaxSize.X)
+	local NewHeight = math.clamp(ResizeStartSize.Y + Delta.Y, Window.MinSize.Y, Window.MaxSize.Y)
+
+	local NewSize = UDim2.fromOffset(NewWidth, NewHeight)
+
+	Window.Size = NewSize
+	Window.UIElements.Main.Size = NewSize
+end)
+
+Creator.AddSignal(UserInputService.InputEnded, function(Input)
+	if not IsResizing then
+		return
+	end
+
+	if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+		IsResizing = false
+		ResizeStartMouse = nil
+		ResizeStartSize = nil
+
+		if not Window.IsFullscreen and not Window.Closed then
+			WindowDragModule:Set(true)
+		end
+
+		Tween(ResizeHandle.ImageLabel, 0.15, { ImageTransparency = 0.8 }):Play()
+	end
+end)
 
 	if not IsVideoBG and Window.Background and typeof(Window.Background) == "table" then
 		local BackgroundGradient = New("UIGradient")
