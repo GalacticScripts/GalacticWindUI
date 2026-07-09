@@ -159,9 +159,18 @@ function OpenButton.New(Window)
                 true,
                 Window.IconThemed
             )
-            Icon.Size = Title and not Title.Visible and UDim2.new(0, 34, 0, 34) or UDim2.new(0, 22, 0, 22)
+            Icon.Size = Title and not Title.Visible and UDim2.new(1, 0, 1, 0) or UDim2.new(0, 22, 0, 22)
+            Icon.BackgroundTransparency = 1
             Icon.LayoutOrder = -1
             Icon.Parent = OpenButtonMain.Button.TextButton
+
+if Icon:FindFirstChild("ImageLabel") then
+	Icon.ImageLabel.Size = UDim2.new(1.12, 0, 1.12, 0)
+	Icon.ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+	Icon.ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+	Icon.ImageLabel.BackgroundTransparency = 1
+	Icon.ImageLabel.ScaleType = Enum.ScaleType.Crop
+end
         end
     end
     
@@ -251,24 +260,47 @@ function OpenButton.New(Window)
 			Drag.Visible = false
 			Divider.Visible = false
 
-			Button.Size = UDim2.new(0, 54, 0, 54)
-			Button.AutomaticSize = Enum.AutomaticSize.None
+        Button.Size = UDim2.new(0, 58, 0, 58)
+        Button.AutomaticSize = Enum.AutomaticSize.None
 
-			Button.TextButton.Size = UDim2.new(1, -8, 1, -8)
-			Button.TextButton.AutomaticSize = Enum.AutomaticSize.None
-			Button.TextButton.Position = UDim2.new(0.5, 0, 0.5, 0)
-			Button.TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
+        Button.BackgroundTransparency = 1
+        Button.UIStroke.Transparency = 1
+        Button.TextButton.BackgroundTransparency = 1
 
-			Button.TextButton.UIPadding.PaddingLeft = UDim.new(0, 0)
-			Button.TextButton.UIPadding.PaddingRight = UDim.new(0, 0)
+        Button.UICorner.CornerRadius = UDim.new(0, 14)
+        Button.TextButton.UICorner.CornerRadius = UDim.new(0, 11)
 
-			if Icon then
-				Icon.Size = UDim2.new(0, 34, 0, 34)
-			end
+        Button.TextButton.Size = UDim2.new(1, -4, 1, -4)
+        Button.TextButton.AutomaticSize = Enum.AutomaticSize.None
+        Button.TextButton.Position = UDim2.new(0.5, 0, 0.5, 0)
+        Button.TextButton.AnchorPoint = Vector2.new(0.5, 0.5)
+
+        Button.TextButton.UIPadding.PaddingLeft = UDim.new(0, 0)
+        Button.TextButton.UIPadding.PaddingRight = UDim.new(0, 0)
+
+        Button.TextButton.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        Button.TextButton.UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+        Button.TextButton.UIListLayout.Padding = UDim.new(0, 0)
+
+if Icon then
+	Icon.Size = UDim2.new(1, 0, 1, 0)
+	Icon.BackgroundTransparency = 1
+
+	if Icon:FindFirstChild("ImageLabel") then
+		Icon.ImageLabel.Size = UDim2.new(1.12, 0, 1.12, 0)
+		Icon.ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+		Icon.ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+		Icon.ImageLabel.BackgroundTransparency = 1
+		Icon.ImageLabel.ScaleType = Enum.ScaleType.Crop
+	end
+end
 		elseif OpenButtonModule.OnlyIcon == false then
 			Title.Visible = true
+            Button.BackgroundTransparency = 0.25
+	        Button.UIStroke.Transparency = 0
+	        Button.TextButton.BackgroundTransparency = 1
 
-			Drag.Visible = OpenButtonModule.Draggable ~= false
+	        Drag.Visible = OpenButtonModule.Draggable ~= false
 			Divider.Visible = OpenButtonModule.Draggable ~= false
 
 			Button.Size = UDim2.new(0, 0, 0, 44)
@@ -281,6 +313,9 @@ function OpenButton.New(Window)
 
 			Button.TextButton.UIPadding.PaddingLeft = UDim.new(0, 7 + 4)
 			Button.TextButton.UIPadding.PaddingRight = UDim.new(0, 7 + 4)
+            Button.TextButton.UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
+            Button.TextButton.UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+            Button.TextButton.UIListLayout.Padding = UDim.new(0, Window.UIPadding)
 
 			if Icon then
 				Icon.Size = UDim2.new(0, 22, 0, 22)
@@ -309,9 +344,22 @@ function OpenButton.New(Window)
             Glow.UIGradient.Color = OpenButtonModule.Color
         end
 
-        Button.UICorner.CornerRadius = OpenButtonModule.CornerRadius
-        Button.TextButton.UICorner.CornerRadius = UDim.new(OpenButtonModule.CornerRadius.Scale, OpenButtonModule.CornerRadius.Offset-4)
-        Button.UIStroke.Thickness = OpenButtonModule.StrokeThickness
+        if OpenButtonModule.OnlyIcon == true then
+	Button.UICorner.CornerRadius = UDim.new(0, 14)
+	Button.TextButton.UICorner.CornerRadius = UDim.new(0, 11)
+else
+	Button.UICorner.CornerRadius = OpenButtonModule.CornerRadius
+	Button.TextButton.UICorner.CornerRadius = UDim.new(OpenButtonModule.CornerRadius.Scale, OpenButtonModule.CornerRadius.Offset - 4)
+end
+        if OpenButtonModule.OnlyIcon == true then
+	Button.UIStroke.Thickness = 0
+	Button.UIStroke.Transparency = 1
+	Button.BackgroundTransparency = 1
+else
+	Button.UIStroke.Thickness = OpenButtonModule.StrokeThickness
+	Button.UIStroke.Transparency = 0
+	Button.BackgroundTransparency = 0.25
+end
         
         OpenButtonMain:SetScale(OpenButtonModule.Scale)
     end

@@ -5373,9 +5373,18 @@ af.Folder,
 true,
 af.IconThemed
 )
-ah.Size=ai and not ai.Visible and UDim2.new(0,34,0,34)or UDim2.new(0,22,0,22)
+ah.Size=ai and not ai.Visible and UDim2.new(1,0,1,0)or UDim2.new(0,22,0,22)
+ah.BackgroundTransparency=1
 ah.LayoutOrder=-1
 ah.Parent=ag.Button.TextButton
+
+if ah:FindFirstChild"ImageLabel"then
+ah.ImageLabel.Size=UDim2.new(1.12,0,1.12,0)
+ah.ImageLabel.Position=UDim2.new(0.5,0,0.5,0)
+ah.ImageLabel.AnchorPoint=Vector2.new(0.5,0.5)
+ah.ImageLabel.BackgroundTransparency=1
+ah.ImageLabel.ScaleType=Enum.ScaleType.Crop
+end
 end
 end
 
@@ -5465,10 +5474,17 @@ ai.Visible=false
 aj.Visible=false
 ak.Visible=false
 
-an.Size=UDim2.new(0,54,0,54)
+an.Size=UDim2.new(0,58,0,58)
 an.AutomaticSize=Enum.AutomaticSize.None
 
-an.TextButton.Size=UDim2.new(1,-8,1,-8)
+an.BackgroundTransparency=1
+an.UIStroke.Transparency=1
+an.TextButton.BackgroundTransparency=1
+
+an.UICorner.CornerRadius=UDim.new(0,14)
+an.TextButton.UICorner.CornerRadius=UDim.new(0,11)
+
+an.TextButton.Size=UDim2.new(1,-4,1,-4)
 an.TextButton.AutomaticSize=Enum.AutomaticSize.None
 an.TextButton.Position=UDim2.new(0.5,0,0.5,0)
 an.TextButton.AnchorPoint=Vector2.new(0.5,0.5)
@@ -5476,11 +5492,27 @@ an.TextButton.AnchorPoint=Vector2.new(0.5,0.5)
 an.TextButton.UIPadding.PaddingLeft=UDim.new(0,0)
 an.TextButton.UIPadding.PaddingRight=UDim.new(0,0)
 
+an.TextButton.UIListLayout.HorizontalAlignment=Enum.HorizontalAlignment.Center
+an.TextButton.UIListLayout.VerticalAlignment=Enum.VerticalAlignment.Center
+an.TextButton.UIListLayout.Padding=UDim.new(0,0)
+
 if ah then
-ah.Size=UDim2.new(0,34,0,34)
+ah.Size=UDim2.new(1,0,1,0)
+ah.BackgroundTransparency=1
+
+if ah:FindFirstChild"ImageLabel"then
+ah.ImageLabel.Size=UDim2.new(1.12,0,1.12,0)
+ah.ImageLabel.Position=UDim2.new(0.5,0,0.5,0)
+ah.ImageLabel.AnchorPoint=Vector2.new(0.5,0.5)
+ah.ImageLabel.BackgroundTransparency=1
+ah.ImageLabel.ScaleType=Enum.ScaleType.Crop
+end
 end
 elseif ar.OnlyIcon==false then
 ai.Visible=true
+an.BackgroundTransparency=0.25
+an.UIStroke.Transparency=0
+an.TextButton.BackgroundTransparency=1
 
 aj.Visible=ar.Draggable~=false
 ak.Visible=ar.Draggable~=false
@@ -5495,6 +5527,9 @@ an.TextButton.AnchorPoint=Vector2.new(0,0)
 
 an.TextButton.UIPadding.PaddingLeft=UDim.new(0,11)
 an.TextButton.UIPadding.PaddingRight=UDim.new(0,11)
+an.TextButton.UIListLayout.HorizontalAlignment=Enum.HorizontalAlignment.Left
+an.TextButton.UIListLayout.VerticalAlignment=Enum.VerticalAlignment.Center
+an.TextButton.UIListLayout.Padding=UDim.new(0,af.UIPadding)
 
 if ah then
 ah.Size=UDim2.new(0,22,0,22)
@@ -5523,9 +5558,22 @@ if Glow then
 Glow.UIGradient.Color=ar.Color
 end
 
+if ar.OnlyIcon==true then
+an.UICorner.CornerRadius=UDim.new(0,14)
+an.TextButton.UICorner.CornerRadius=UDim.new(0,11)
+else
 an.UICorner.CornerRadius=ar.CornerRadius
 an.TextButton.UICorner.CornerRadius=UDim.new(ar.CornerRadius.Scale,ar.CornerRadius.Offset-4)
+end
+if ar.OnlyIcon==true then
+an.UIStroke.Thickness=0
+an.UIStroke.Transparency=1
+an.BackgroundTransparency=1
+else
 an.UIStroke.Thickness=ar.StrokeThickness
+an.UIStroke.Transparency=0
+an.BackgroundTransparency=0.25
+end
 
 ag:SetScale(ar.Scale)
 end
