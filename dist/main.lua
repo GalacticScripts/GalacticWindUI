@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    v1.6.65  |  2026-07-01  |  Roblox UI Library for scripts
+    v1.6.65  |  2026-07-09  |  Roblox UI Library for scripts
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -8473,7 +8473,7 @@ ap.Tabs={}
 
 if ap.SearchBarEnabled then
 if not at then
-at=aj("Search...","search",ap.UIElements.Menu,nil,function(aw)
+at=aj(ap.SearchPlaceholder or"Search...","search",ap.UIElements.Menu,nil,function(aw)
 for ax,ay in next,ap.Tabs do
 if string.find(string.lower(ay.Name),string.lower(aw),1,true)then
 ay.UIElements.TabItem.Visible=true
@@ -8923,7 +8923,8 @@ Values=ao.Values or{},
 MenuWidth=ao.MenuWidth or 180,
 Value=ao.Value,
 AllowNone=ao.AllowNone,
-SearchBarEnabled=ao.SearchBarEnabled or false,
+SearchBarEnabled=ao.SearchBarEnabled or ao.Searchable or false,
+SearchPlaceholder=ao.SearchPlaceholder or"Search...",
 Multi=ao.Multi,
 Callback=ao.Callback or nil,
 

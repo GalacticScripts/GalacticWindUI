@@ -37,7 +37,8 @@ function Element:New(Config)
 		MenuWidth = Config.MenuWidth or 180,
 		Value = Config.Value,
 		AllowNone = Config.AllowNone,
-		SearchBarEnabled = Config.SearchBarEnabled or false,
+		SearchBarEnabled = Config.SearchBarEnabled or Config.Searchable or false,
+SearchPlaceholder = Config.SearchPlaceholder or "Search...",
 		Multi = Config.Multi,
 		Callback = Config.Callback or nil,
 

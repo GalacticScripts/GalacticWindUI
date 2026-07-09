@@ -270,7 +270,7 @@ function DropdownMenu.New(Config, Dropdown, Element, Type)
 
 		if Dropdown.SearchBarEnabled then
 			if not SearchLabel then
-				SearchLabel = CreateInput("Search...", "search", Dropdown.UIElements.Menu, nil, function(val)
+				SearchLabel = CreateInput(Dropdown.SearchPlaceholder or "Search...", "search", Dropdown.UIElements.Menu, nil, function(val)
 					for _, tab in next, Dropdown.Tabs do
 						if string.find(string.lower(tab.Name), string.lower(val), 1, true) then
 							tab.UIElements.TabItem.Visible = true
