@@ -38,7 +38,7 @@ function Element:New(Config)
 		Value = Config.Value,
 		AllowNone = Config.AllowNone,
 		SearchBarEnabled = Config.SearchBarEnabled or Config.Searchable or false,
-SearchPlaceholder = Config.SearchPlaceholder or "Search...",
+		SearchPlaceholder = Config.SearchPlaceholder or "Search...",
 		Multi = Config.Multi,
 		Callback = Config.Callback or nil,
 
