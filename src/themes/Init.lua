@@ -29,6 +29,41 @@ return function(WindUI, Creator)
 			ElementBackgroundTransparency = 0,
 		},
 
+				Galactic = {
+			Name = "Galactic",
+
+			Accent = Color3.fromHex("#0B5CFF"),
+			Dialog = Color3.fromHex("#0B1020"),
+			Outline = Color3.fromHex("#60A5FA"),
+			Text = Color3.fromHex("#F8FAFC"),
+			Placeholder = Color3.fromHex("#94A3B8"),
+			Background = Color3.fromHex("#050816"),
+			Button = Color3.fromHex("#1E40AF"),
+			Icon = Color3.fromHex("#60A5FA"),
+
+			Toggle = Color3.fromHex("#38BDF8"),
+			Slider = Color3.fromHex("#38BDF8"),
+			Checkbox = Color3.fromHex("#38BDF8"),
+			Primary = Color3.fromHex("#38BDF8"),
+
+			PanelBackground = Color3.fromHex("#FFFFFF"),
+			PanelBackgroundTransparency = 0.94,
+
+			LabelBackground = Color3.fromHex("#020617"),
+			LabelBackgroundTransparency = 0.78,
+
+			ElementBackground = Color3.fromHex("#111827"),
+			ElementBackgroundTransparency = 0,
+
+			TabBackgroundActive = Color3.fromHex("#2563EB"),
+			TabBackgroundActiveTransparency = 0.68,
+			TabBackgroundHover = Color3.fromHex("#1D4ED8"),
+			TabBackgroundHoverTransparency = 0.86,
+
+			DropdownBackground = Color3.fromHex("#020617"),
+			DropdownTabBackground = Color3.fromHex("#111827"),
+		},
+
 		Light = {
 			Name = "Light",
 
