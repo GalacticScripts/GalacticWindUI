@@ -508,14 +508,14 @@ TabBackground="Hover",
 TabBackgroundHover="Hover",
 TabBackgroundHoverTransparency=0.97,
 TabBackgroundActive="Hover",
-TabBackgroundActiveTransparency=0.93,
+TabBackgroundActiveTransparency=0.84,
 TabText="Text",
 TabTextTransparency=0.3,
 TabTextTransparencyActive=0,
 TabTitle="Text",
 TabIcon="Icon",
 TabIconTransparency=0.4,
-TabIconTransparencyActive=0.1,
+TabIconTransparencyActive=0,
 TabBorderTransparency=1,
 TabBorderTransparencyActive=0.75,
 TabBorder="White",
@@ -11669,8 +11669,8 @@ UICorner=Window.UICorner-(Window.UIPadding/2),
 
 Gap=Window.NewElements and 1 or 6,
 
-TabPaddingX=4+(Window.UIPadding/2),
-TabPaddingY=3+(Window.UIPadding/2),
+TabPaddingX=10+(Window.UIPadding/2),
+TabPaddingY=5+(Window.UIPadding/2),
 TitlePaddingY=0,
 }
 
@@ -11738,7 +11738,7 @@ Name="Frame",
 },{
 al("UIListLayout",{
 SortOrder="LayoutOrder",
-Padding=UDim.new(0,2+(Window.UIPadding/2)),
+Padding=UDim.new(0,12+(Window.UIPadding/2)),
 FillDirection="Horizontal",
 VerticalAlignment="Center",
 }),
@@ -11789,7 +11789,7 @@ ar.IconColor and false or true,
 ar.IconThemed,
 "TabIcon"
 )
-au.Size=UDim2.new(0,16,0,16)
+au.Size=UDim2.new(0,21,0,21)
 if ar.IconColor then
 au.ImageLabel.ImageColor3=ar.IconColor
 end
@@ -11797,7 +11797,7 @@ if not ar.IconShape then
 au.Parent=ar.UIElements.Main.Frame
 ar.UIElements.Icon=au
 au.ImageLabel.ImageTransparency=not ar.Locked and 0 or 0.7
-at=-18-(Window.UIPadding/2)
+at=-33-(Window.UIPadding/2)
 ar.UIElements.Main.Frame.TextLabel.Size=UDim2.new(1,at,0,0)
 elseif ar.IconColor then
 ak.NewRoundFrame(
@@ -11849,7 +11849,7 @@ end
 
 av=
 ak.Image(ar.Icon,ar.Icon..":"..ar.Title,0,Window.Folder,ar.__type,true,ar.IconThemed)
-av.Size=UDim2.new(0,16,0,16)
+av.Size=UDim2.new(0,21,0,21)
 av.ImageLabel.ImageTransparency=not ar.Locked and 0 or 0.7
 at=-30
 

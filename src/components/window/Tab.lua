@@ -61,8 +61,8 @@ function TabModule.New(Config, UIScale)
 
 		Gap = Window.NewElements and 1 or 6,
 
-		TabPaddingX = 4 + (Window.UIPadding / 2),
-		TabPaddingY = 3 + (Window.UIPadding / 2),
+		TabPaddingX = 10 + (Window.UIPadding / 2),
+		TabPaddingY = 5 + (Window.UIPadding / 2),
 		TitlePaddingY = 0,
 	}
 
@@ -130,7 +130,7 @@ function TabModule.New(Config, UIScale)
 		}, {
 			New("UIListLayout", {
 				SortOrder = "LayoutOrder",
-				Padding = UDim.new(0, 2 + (Window.UIPadding / 2)),
+				Padding = UDim.new(0, 12 + (Window.UIPadding / 2)),
 				FillDirection = "Horizontal",
 				VerticalAlignment = "Center",
 			}),
@@ -181,7 +181,7 @@ function TabModule.New(Config, UIScale)
 			Tab.IconThemed,
 			"TabIcon"
 		)
-		Icon.Size = UDim2.new(0, 16, 0, 16)
+		Icon.Size = UDim2.new(0, 21, 0, 21)
 		if Tab.IconColor then
 			Icon.ImageLabel.ImageColor3 = Tab.IconColor
 		end
@@ -189,7 +189,7 @@ function TabModule.New(Config, UIScale)
 			Icon.Parent = Tab.UIElements.Main.Frame
 			Tab.UIElements.Icon = Icon
 			Icon.ImageLabel.ImageTransparency = not Tab.Locked and 0 or 0.7
-			TextOffset = -16 - 2 - (Window.UIPadding / 2)
+			TextOffset = -21 - 12 - (Window.UIPadding / 2)
 			Tab.UIElements.Main.Frame.TextLabel.Size = UDim2.new(1, TextOffset, 0, 0)
 		elseif Tab.IconColor then
 			local _IconBG = Creator.NewRoundFrame(
@@ -241,7 +241,7 @@ function TabModule.New(Config, UIScale)
 
 		Icon2 =
 			Creator.Image(Tab.Icon, Tab.Icon .. ":" .. Tab.Title, 0, Window.Folder, Tab.__type, true, Tab.IconThemed)
-		Icon2.Size = UDim2.new(0, 16, 0, 16)
+		Icon2.Size = UDim2.new(0, 21, 0, 21)
 		Icon2.ImageLabel.ImageTransparency = not Tab.Locked and 0 or 0.7
 		TextOffset = -30
 
