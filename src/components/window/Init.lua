@@ -853,7 +853,7 @@ return function(Config)
 					Name = "Right",
 				}, {
 					New("UIListLayout", {
-						Padding = UDim.new(0, Window.Topbar.ButtonsType == "Default" and 9 or 0),
+						Padding = UDim.new(0, Window.Topbar.ButtonsType == "Default" and 9 or 4),
 						FillDirection = "Horizontal",
 						SortOrder = "LayoutOrder",
 					}),
@@ -930,9 +930,9 @@ return function(Config)
 			Window.Topbar.ButtonsType == "Default" and Window.UICorner - (Window.UIPadding / 2) or 999,
 			"Squircle",
 			{
-				Size = Window.Topbar.ButtonsType == "Default"
-						and UDim2.new(0, Window.Topbar.Height - 16, 0, Window.Topbar.Height - 16)
-					or UDim2.new(0, 14, 0, 14),
+Size = Window.Topbar.ButtonsType == "Default"
+        and UDim2.new(0, Window.Topbar.Height - 16, 0, Window.Topbar.Height - 16)
+    or UDim2.new(0, 20, 0, 20),
 				LayoutOrder = LayoutOrder or 999,
 				--Parent = Window.Topbar.ButtonsType == "Default" and Window.UIElements.Main.Main.Topbar.Right or nil,
 				--Active = true,
@@ -967,8 +967,8 @@ return function(Config)
 		)
 
 		local ButtonContainer = New("Frame", {
-			Size = Window.Topbar.ButtonsType ~= "Default" and UDim2.new(0, 24, 0, 24)
-				or UDim2.new(0, Window.Topbar.Height - 16, 0, Window.Topbar.Height - 16),
+    		Size = Window.Topbar.ButtonsType ~= "Default" and UDim2.new(0, 32, 0, 32)
+        			or UDim2.new(0, Window.Topbar.Height - 16, 0, Window.Topbar.Height - 16),
 			BackgroundTransparency = 1,
 			Parent = Window.UIElements.Main.Main.Topbar.Right,
 			LayoutOrder = LayoutOrder or 999,
