@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    v1.6.65  |  2026-07-09  |  Roblox UI Library for scripts
+    v1.6.65  |  2026-08-05  |  Roblox UI Library for scripts
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -13960,7 +13960,7 @@ AnchorPoint=Vector2.new(aw.Topbar.ButtonsType=="Default"and 1 or 0,0.5),
 Name="Right",
 },{
 ao("UIListLayout",{
-Padding=UDim.new(0,aw.Topbar.ButtonsType=="Default"and 9 or 0),
+Padding=UDim.new(0,aw.Topbar.ButtonsType=="Default"and 9 or 4),
 FillDirection="Horizontal",
 SortOrder="LayoutOrder",
 }),
@@ -14039,7 +14039,7 @@ aw.Topbar.ButtonsType=="Default"and aw.UICorner-(aw.UIPadding/2)or 999,
 {
 Size=aw.Topbar.ButtonsType=="Default"
 and UDim2.new(0,aw.Topbar.Height-16,0,aw.Topbar.Height-16)
-or UDim2.new(0,14,0,14),
+or UDim2.new(0,20,0,20),
 LayoutOrder=J or 999,
 
 
@@ -14074,7 +14074,7 @@ true
 )
 
 local Q=ao("Frame",{
-Size=aw.Topbar.ButtonsType~="Default"and UDim2.new(0,24,0,24)
+Size=aw.Topbar.ButtonsType~="Default"and UDim2.new(0,32,0,32)
 or UDim2.new(0,aw.Topbar.Height-16,0,aw.Topbar.Height-16),
 BackgroundTransparency=1,
 Parent=aw.UIElements.Main.Main.Topbar.Right,
