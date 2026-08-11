@@ -1316,10 +1316,18 @@ end)
 		end
 	end)
 
-	Window:CreateTopbarButton("Minimize", "minus", function()
-		if Window.Close then
-			Window:Close()
-		end
+Window:CreateTopbarButton("Minimize", "minus", function()
+	if Window.Close then
+		Window:Close()
+
+		task.spawn(function()
+			task.wait(0.45)
+
+			if Window.OpenButtonMain and not Window.Destroyed and Window.IsOpenButtonEnabled then
+				Window.OpenButtonMain:Visible(true)
+			end
+		end)
+	end
 		-- task.spawn(function()
 		--     task.wait(.3)
 		--     if not Window.IsPC and Window.IsOpenButtonEnabled then
