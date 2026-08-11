@@ -1317,17 +1317,36 @@ end)
 	end)
 
 Window:CreateTopbarButton("Minimize", "minus", function()
-	if Window.Close then
-		Window:Close()
+	if Window.Destroyed then
+		return
+	end
 
-		task.spawn(function()
-			task.wait(0.45)
+	Window.CanDropdown = false
+	Window.Closed = true
 
-			if Window.OpenButtonMain and not Window.Destroyed and Window.IsOpenButtonEnabled then
+	if Window.UIElements.Main and Window.UIElements.Main:FindFirstChild("Main") then
+		Window.UIElements.Main.Main.Visible = false
+	end
+
+	if Window.OpenButtonMain and Window.IsOpenButtonEnabled then
+		Window.OpenButtonMain:Visible(true)
+	end
+
+	Tween(Window.UIElements.Main, 0.35, {
+		Size = UDim2.new(Window.Size.X.Scale, Window.Size.X.Offset, 0, 0),
+	}, Enum.EasingStyle.Quint, Enum.EasingDirection.Out):Play()
+
+	task.spawn(function()
+		task.wait(0.35)
+
+		if Window.Closed and not Window.Destroyed then
+			Window.UIElements.Main.Visible = false
+
+			if Window.OpenButtonMain and Window.IsOpenButtonEnabled then
 				Window.OpenButtonMain:Visible(true)
 			end
-		end)
-	end
+		end
+	end)
 		-- task.spawn(function()
 		--     task.wait(.3)
 		--     if not Window.IsPC and Window.IsOpenButtonEnabled then

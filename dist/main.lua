@@ -4,7 +4,7 @@
     | |/ |/ / / _ \/ _  / /_/ // /  
     |__/|__/_/_//_/\_,_/\____/___/
     
-    v1.6.65  |  2026-08-05  |  Roblox UI Library for scripts
+    v1.6.65  |  2026-08-11  |  Roblox UI Library for scripts
     
     To view the source code, see the `src/` folder on the official GitHub repository.
     
@@ -14424,9 +14424,36 @@ end
 end)
 
 aw:CreateTopbarButton("Minimize","minus",function()
-if aw.Close then
-aw:Close()
+if aw.Destroyed then
+return
 end
+
+aw.CanDropdown=false
+aw.Closed=true
+
+if aw.UIElements.Main and aw.UIElements.Main:FindFirstChild"Main"then
+aw.UIElements.Main.Main.Visible=false
+end
+
+if aw.OpenButtonMain and aw.IsOpenButtonEnabled then
+aw.OpenButtonMain:Visible(true)
+end
+
+ap(aw.UIElements.Main,0.35,{
+Size=UDim2.new(aw.Size.X.Scale,aw.Size.X.Offset,0,0),
+},Enum.EasingStyle.Quint,Enum.EasingDirection.Out):Play()
+
+task.spawn(function()
+task.wait(0.35)
+
+if aw.Closed and not aw.Destroyed then
+aw.UIElements.Main.Visible=false
+
+if aw.OpenButtonMain and aw.IsOpenButtonEnabled then
+aw.OpenButtonMain:Visible(true)
+end
+end
+end)
 
 
 
